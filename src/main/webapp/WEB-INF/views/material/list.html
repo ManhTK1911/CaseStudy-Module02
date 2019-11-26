@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Material</title>
+</head>
+<body>
+<style>
+    button {
+        text-align: center;
+    }
+
+    table {
+        margin: auto;
+        border: 2px solid black;
+        margin-left: 30px;
+    }
+
+    tr {
+        border: 2px solid black;
+        margin: auto;
+        padding: 15px;
+    }
+
+    td {
+        margin: auto;
+        border: 2px solid black;
+        text-align: center;
+        padding: 15px;
+        font-weight: bolder;
+    }
+
+    th {
+        color: chocolate;
+    }
+
+    form {
+        margin-top: 15px;
+    }
+
+    #so {
+        margin-left: 38px
+    }
+</style>
+<fieldset style="height: fit-content; width: fit-content">
+    <legend style="color: red"><h1>Material List</h1></legend>
+    <p>
+        <button><a href="/create-material">Create Material</a></button>
+    </p>
+    <p>
+        <button><a href="/suppliers">Supplier List</a></button>
+    </p>
+    <form action="/searchBySupplier" onchange="this.submit()">
+        <a style="color: #8b0e6b">Search by Supplier</a>
+        <select name="searchSupplier">
+            <option value="-1">All</option>
+            <option th:each="ss:${suppliers}" th:text="${ss.name}" th:value="${ss.getId()}"
+                    th:selected="(${ss.id} == ${searchSupplier})"></option>
+        </select>
+    </form>
+
+    <form action="/sortByPrice" onchange="this.submit()">
+        <a style="color: #8b0b6d">Sort by Price</a>
+        <select id="so" name="sortPrice">
+            <option value="no" th:selected="(${sortPrice} == 'no')">All</option>
+            <option value="asc" th:selected="(${sortPrice} == 'asc')">ASC</option>
+            <option value="desc" th:selected="(${sortPrice} == 'desc')">DESC</option>
+        </select>
+    </form>
+    <br>
+
+    <table border="1">
+        <tr style="color: deeppink">
+            <td>Code</td>
+            <td>Name</td>
+            <td>Supplier</td>
+            <td>Import Date</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td>Edit</td>
+            <td>Delete</td>
+            <td>Detail</td>
+            <td>Image</td>
+        </tr>
+        <th:block th:each="material: ${materials}">
+            <tr>
+                <td th:text="${material.code}"></td>
+                <td th:text="${material.name}"></td>
+                <td th:text="${material.getSupplier().getName()}"></td>
+                <td th:text="${material.importDate}"></td>
+                <td th:text="${material.description}"></td>
+                <td th:text="${material.price}"></td>
+                <td th:text="${material.quantity}"></td>
+                <td><a th:href="@{/edit-material/__${material.id}__ }">Edit</a></td>
+                <td><a th:href="@{/delete-material/__${material.id}__ }">Delete</a></td>
+                <td><a th:href="@{/detail-material/__${material.id}__ }">Detail</a></td>
+                <td><img width="70px" height="70px" th:src="@{'/i/' + ${material.image}}"></td>
+            </tr>
+        </th:block>
+        <div>
+            <a th:href="@{'/materials'(page=${materials.number - 1})}" th:if="${materials.hasPrevious()}">Previous</a>
+            <span th:text="${materials.number + 1}"></span>/<span th:text="${materials.totalPages}"></span>
+            <a th:href="@{'/materials'(page=${materials.number + 1})}" th:if="${materials.hasNext()}">Next</a>
+        </div>
+    </table>
+</fieldset>
+</body>
+</html>

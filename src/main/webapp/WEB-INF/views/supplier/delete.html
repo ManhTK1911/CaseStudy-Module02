@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Supplier</title>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h2 style="color: red">Delete Supplier</h2></legend>
+    <h2 style="color: gold">Are you sure?</h2>
+    <p>
+        <button><a href="/suppliers">Supplier list</a></button>
+    </p>
+    <form th:action="@{/delete-supplier}" th:object="${supplier}" method="post">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td th:text="${supplier.name}"></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td th:text="${supplier.description}"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td th:text="${supplier.address}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Delete Supplier" style="color: blue"></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+</body>
+</html>

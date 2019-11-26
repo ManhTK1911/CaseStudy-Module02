@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h2 style="color: red">Material Detail</h2></legend>
+    <p>
+        <button><a href="/materials">Material List</a></button>
+    </p>
+    <form th:object="${material}">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>Code</td>
+                <td><input type="text" th:field="*{code}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{name}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Supplier</td>
+                <td th:text="${material.getSupplier().getName()}" style="color: blue"></td>
+            </tr>
+            <tr>
+                <td>Import Date</td>
+                <td><input type="text" th:field="*{importDate}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="text" th:field="*{description}" disabled/></td>
+            </tr><tr>
+                <td>Price</td>
+                <td><input type="text" th:field="*{price}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td><input type="text" th:field="*{quantity}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><img width="70px" height="70px" th:src="@{'/i/' + ${material.getImage()}}"></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+</body>
+</html>

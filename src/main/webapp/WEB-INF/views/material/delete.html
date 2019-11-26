@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Material</title>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h1 style="color: red">Delete Material</h1></legend>
+    <h2>Are you sure???</h2>
+    <p>
+        <button><a href="/materials">Material List</a></button>
+    </p>
+    <form th:action="@{/delete-material}" th:object="${material}" method="post">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>Code: </td>
+                <td th:text="${material.name}"></td>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td th:text="${material.name}"></td>
+            </tr>
+            <tr>
+                <td>Supplier: </td>
+                <td th:text="${material.getSupplier().getName()}"></td>
+            </tr>
+            <tr>
+                <td>Import Date: </td>
+                <td th:text="${material.importDate}"></td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td th:text="${material.description}"></td>
+            </tr><tr>
+                <td>Price: </td>
+                <td th:text="${material.price}"></td>
+            </tr>
+            <tr>
+                <td>Quantity:</td>
+                <td th:text="${material.quantity}"></td>
+            </tr>
+            <tr>
+                <td>Image:</td>
+                <td><img width="70px" height="70px" th:src="@{'/i/' + ${material.getImage()}}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" style="color: blue" value="Delete Material"></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+</body>
+</html>

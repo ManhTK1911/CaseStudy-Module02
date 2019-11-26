@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Suppliers</title>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h1 style="color:orangered">Suppliers</h1></legend>
+    <button><a href="/create-supplier">Create new Supplier</a></button>
+    <p>
+        <button><a href="/materials">Material List</a></button>
+    </p>
+    <br><br>
+    <table border="1">
+        <tr style="color: deeppink">
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <th:block th:each="supplier: ${suppliers}">
+            <tr>
+                <td th:text="${supplier.name}"></td>
+                <td th:text="${supplier.description}"></td>
+                <td th:text="${supplier.address}"></td>
+                <td><a th:href="@{/edit-supplier/__${supplier.id}__ }">Edit</a></td>
+                <td><a th:href="@{/delete-supplier/__${supplier.id}__ }">Delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+</fieldset>
+</body>
+</html>
